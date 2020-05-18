@@ -1,7 +1,9 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, UsePipes } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport'
 import { UserService } from './user.service';
 import { AuthService } from '../auth/auth.service';
+import { ValidationPipe } from '../../pipe/validation.pipe';
+import { RegisterInfoDTO } from './user.dto'; // 引入 DTO
 
 @Controller('user')
 export class UserController {
@@ -11,16 +13,17 @@ export class UserController {
         console.log('进入‘fin', body)
         return this.userService.findOne(body.userName);
     }
-    @UseGuards(AuthGuard('jwt'))
+    // @UseGuards(AuthGuard('jwt'))
+    @UsePipes(new ValidationPipe())
     @Post('register')
-    async register(@Body() body: any) {
+    async register(@Body() body: RegisterInfoDTO) {
         return await this.userService.register(body)
     }
      // JWT验证 - Step 1: 用户请求登录
   @Post('login')
   async login(@Body() loginParmas: any) {
     console.log('JWT验证 - Step 1: 用户请求登录');
-    const authResult = await this.authService.validateUser(loginParmas.username, loginParmas.password);
+    const authResult = await this.authService.validateUser(loginParmas.userName, loginParmas.password);
     switch (authResult.code) {
       case 1:
         return this.authService.certificate(authResult.user);
@@ -35,5 +38,10 @@ export class UserController {
           msg: `查无此人`,
         };
     }
+  }
+
+  @Post('list')
+  async list() {
+    return this.userService.findAll();
   }
 }

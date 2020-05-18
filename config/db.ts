@@ -1,27 +1,41 @@
 // config/db.ts
 const productConfig = {
   mysql: {
-    port: 3306,
+    // dialect: 'mysql',
     host: 'localhost',
-    user: 'root',
+    port: 3306,
+    username: 'root',
     password: '123456',
-    database: 'test', // 库名
-    connectionLimit: 10, // 连接限制
+    database: 'test',
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+    dialect: 'mysql'
   },
 };
 
 const localConfig = {
   mysql: {
-    port: 3306,
+    // dialect: 'mysql',
     host: 'localhost',
-    user: 'root',
+    port: 3306,
+    username: 'root',
     password: '123456',
-    database: 'test', // 库名
-    connectionLimit: 10, // 连接限制
+    database: 'test',
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+    dialect: 'mysql'
   },
 };
 
 // 本地运行是没有 process.env.NODE_ENV 的，借此来区分[开发环境]和[生产环境]
 const config = process.env.NODE_ENV ? productConfig : localConfig;
-
+export const mysqlConfig = config.mysql;
 export default config;
