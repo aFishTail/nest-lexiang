@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
-// import * as Sequelize from 'sequelize';
-// import sequelize from '../../database/sequelize';
 import { makeSalt, encryptPassword } from 'src/utils/cryptogram';
 import { DEFAULT_PICTURE } from '../../../config/constants';
-import { Sequelize } from 'sequelize-typescript';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from '../../database/model/user';
 
