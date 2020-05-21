@@ -9,14 +9,14 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
   // JWT验证 - Step 2: 校验用户信息
-  async validateUser(userName: string, password: string) {
+  async validateUser(userName: string, passwd: string) {
     console.log('JWT验证 - Step 2: 校验用户信息');
     const user = await this.userService.findOne(userName);
     if (user) {
-      const hashedPassword = user.password;
-      const salt = user.password_salt;
+      const hashedPassword = user.passwd;
+      const salt = user.passwdSalt;
       // 通过密码盐，加密传参，再与数据库里的比较，判断是否相等
-      const hashPassword = encryptPassword(password, salt);
+      const hashPassword = encryptPassword(passwd, salt);
       console.log('密码', salt, hashPassword);
       if (hashedPassword === hashPassword) {
         // 密码正确

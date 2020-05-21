@@ -11,12 +11,12 @@ export function makeSalt(): string{
   return crypto.randomBytes(3).toString('base64')
 }
 
-export function encryptPassword(password: string, salt: string): string{
-  if(!password || !salt) {
+export function encryptPassword(passwd: string, salt: string): string{
+  if(!passwd || !salt) {
     return ''
   }
   const tmpSalt = Buffer.from(salt, 'base64')
   return (
-    crypto.pbkdf2Sync(password, tmpSalt, 10000, 16, 'sha1').toString('base64')
+    crypto.pbkdf2Sync(passwd, tmpSalt, 10000, 16, 'sha1').toString('base64')
   )
 }

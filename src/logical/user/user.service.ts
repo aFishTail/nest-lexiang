@@ -19,11 +19,6 @@ export class UserService {
    */
   async findOne(userName: string): Promise<any | undefined> {
     try {
-      // const user = (await sequelize.query(sql, {
-      //   type: Sequelize.QueryTypes.SELECT, // 查询方式
-      //   raw: true, // 是否使用数组组装的方式展示结果
-      //   logging: true, // 是否将 SQL 语句打印到控制台，默认为 true
-      // }))[0];
       const user = this.userModel.findOne({ where: { userName } });
       console.log('user', user);
       return user;
@@ -34,8 +29,8 @@ export class UserService {
   }
 
   async register(requestBody: any): Promise<any> {
-    const { userName, password, repassword } = requestBody;
-    if (password !== repassword) {
+    const { userName, passwd, repasswd } = requestBody;
+    if (passwd !== repasswd) {
       return {
         code: 400,
         msg: '两次输入密码不一致',
@@ -49,24 +44,7 @@ export class UserService {
       };
     }
     const salt = makeSalt();
-    const hashPwd = encryptPassword(password, salt);
-    // const sql = `
-    //   INSERT INTO users (userName, password, password_salt,nickName,picture)
-    //   VALUES
-    //   ('${userName}','${hashPwd}','${salt}','${userName}','${DEFAULT_PICTURE}')
-    // `;
-    // try {
-    //   await sequelize.query(sql, { logging: false });
-    //   return {
-    //     code: 200,
-    //     msg: 'Success',
-    //   };
-    // } catch (error) {
-    //   return {
-    //     code: 503,
-    //     msg: `Service error: ${error}`,
-    //   };
-    // }
+    const hashPwd = encryptPassword(passwd, salt);
     try {
       const user =  await this.userModel.create({
         userName,
