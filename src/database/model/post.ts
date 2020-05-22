@@ -11,11 +11,17 @@ import {
     Comment,
     Unique,
     AutoIncrement,
-    DataType
+    DataType,
+    ForeignKey,
+    BelongsTo,
+    BelongsToMany
   } from 'sequelize-typescript';
   
+import { User } from './user'
+import { Resource } from './resource'
+import { PostResourceRelation } from './post_resource_relation'
   @Table
-  export class User extends Model<User> {
+  export class Post extends Model<Post> {
     @AllowNull(false)
     @PrimaryKey
     @AutoIncrement
@@ -32,12 +38,18 @@ import {
   
     @AllowNull(false)
     @Comment('内容')
-    @Column
+    @Column(DataType.TEXT)
     content: string;
-  
-    @AllowNull(false)
-    @Comment('资源')
+
+    
+    @ForeignKey(() => User)
     @Column
-    resource: string;
+    author_id: number;
+    
+    @BelongsTo(() => User)
+    author: User;
+
+    @BelongsToMany(() => Resource, () => PostResourceRelation)
+    resource: Resource[]
   }
   

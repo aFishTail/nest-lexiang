@@ -7,6 +7,8 @@ const productConfig = {
     username: 'root',
     password: '123456',
     database: 'test',
+    underscored: true,//下划线
+    timezone: '+08:00',
     pool: {
       max: 5,
       min: 0,
@@ -25,6 +27,8 @@ const localConfig = {
     username: 'root',
     password: '123456',
     database: 'test',
+    underscored: true,//下划线
+    timezone: '+08:00',
     pool: {
       max: 5,
       min: 0,

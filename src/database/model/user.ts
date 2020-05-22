@@ -11,8 +11,10 @@ import {
   Comment,
   Unique,
   AutoIncrement,
-  DataType
+  DataType,
+  HasMany
 } from 'sequelize-typescript';
+import { Post } from './post'
 
 @Table
 export class User extends Model<User> {
@@ -27,7 +29,7 @@ export class User extends Model<User> {
   @AllowNull(false)
   @Comment('用户名')
   @Column
-  userName: string;
+  user_name: string;
 
   @AllowNull(false)
   @Comment('用户密码')
@@ -37,15 +39,18 @@ export class User extends Model<User> {
   @AllowNull(false)
   @Comment('用户密码盐')
   @Column
-  passwdSalt: string;
+  passwd_salt: string;
 
   @AllowNull(false)
   @Comment('用户昵称')
   @Column
-  nickName: string;
+  nick_name: string;
 
   @AllowNull(false)
   @Comment('用户头像地址')
   @Column
   picture: string;
+
+  @HasMany(() => Post)
+  posts: Post[];
 }
