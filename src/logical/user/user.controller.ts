@@ -45,4 +45,12 @@ export class UserController {
   async list() {
     return this.userService.findAll();
   }
+/**
+ * github第三方认证注册
+ * @param authParams 
+ */
+  @Post('auth/github')
+  async authByGithub(@Body() authParams: {code: string}) {
+    const user = this.userService.authGitHub(authParams.code)
+  }
 }

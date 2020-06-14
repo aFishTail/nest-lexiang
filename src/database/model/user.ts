@@ -28,8 +28,8 @@ export class User extends Model<User> {
   @Unique
   @AllowNull(false)
   @Comment('用户名')
-  @Column
-  user_name: string;
+  @Column({ type: DataType.STRING, field: 'user_name' })
+  userName: string;
 
   @AllowNull(false)
   @Comment('用户密码')
@@ -38,13 +38,13 @@ export class User extends Model<User> {
 
   @AllowNull(false)
   @Comment('用户密码盐')
-  @Column
-  passwd_salt: string;
+  @Column({ type: DataType.STRING, field: 'password_salt' })
+  passwdSalt: string;
 
   @AllowNull(false)
   @Comment('用户昵称')
-  @Column
-  nick_name: string;
+  @Column({ type: DataType.STRING, field: 'nick_name' })
+  nickName: string;
 
   @AllowNull(false)
   @Comment('用户头像地址')

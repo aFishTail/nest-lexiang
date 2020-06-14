@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpService } from '@nestjs/common';
 import { makeSalt, encryptPassword } from 'src/utils/cryptogram';
 import { DEFAULT_PICTURE } from '../../../config/constants';
 import { InjectModel } from '@nestjs/sequelize';
@@ -6,7 +6,7 @@ import { User } from '../../database/model/user';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User) private userModel: typeof User) {}
+  constructor(@InjectModel(User) private userModel: typeof User, private readonly httpService: HttpService) {}
   async findAll(): Promise<User[]> {
     return this.userModel.findAll();
   }
@@ -61,5 +61,28 @@ export class UserService {
         msg: `Service error: ${error}`,
       };
     }
+  }
+  async authGitHub(requestToken: string):Promise<any>{
+    const clientID = 'e2b328cd374db3681c8a'
+    const clientSecret = 'c06aa02f89832619e9ac656e20d37798dcb066da'
+    // const tokenResponse = await this.httpService.post('https://github.com/login/oauth/access_token?' +
+    // `client_id=${clientID}&` +
+    // `client_secret=${clientSecret}&` +
+    // `code=${requestToken}`);  
+  
+    // // const accessToken = tokenResponse.data.access_token;
+    // // console.log(`access token: ${accessToken}`);
+  
+    // const result = await this.httpService.get('https://api.github.com/user',{
+    //   headers: {
+    //     accept: 'application/json',
+    //     // Authorization: `token ${accessToken}`
+    //   }
+    // });
+    // console.log(result);
+    // const name = result.data.name;
+    const result = await this.httpService.get('http://localhost:3000/list');
+  
+    // ctx.response.redirect(`/welcome.html?name=${name}`)
   }
 }

@@ -9,7 +9,7 @@ import { UserModule } from './logical/user/user.module';
 import { AuthModule } from './logical/auth/auth.module';
 import { PostModule } from './logical/post/post.module';
 import { mysqlConfig } from '../config/db';
-import { User } from './database/model/user';
+// import { User } from './database/model/user';
 import { ResourceService } from './logical/resource/resource.service';
 import { ResourceController } from './logical/resource/resource.controller';
 import { ResourceModule } from './logical/resource/resource.module';

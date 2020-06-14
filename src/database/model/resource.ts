@@ -43,8 +43,8 @@ import { PostResourceRelation } from './post_resource_relation'
 
     @AllowNull(false)
     @Comment('资源链接提取码')
-    @Column
-    link_code: string;
+    @Column({ type: DataType.STRING, field: 'link_code' })
+    linkCode: string;
 
     @AllowNull(false)
     @Comment('资源类型')
@@ -52,8 +52,8 @@ import { PostResourceRelation } from './post_resource_relation'
     type: string;
     
     @ForeignKey(() => User)
-    @Column
-    author_id: number;
+    @Column({ type: DataType.INTEGER, field: 'author_id' })
+    authorId: number;
     
     @BelongsTo(() => User)
     author: User;

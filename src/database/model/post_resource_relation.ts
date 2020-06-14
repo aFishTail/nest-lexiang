@@ -7,6 +7,7 @@ import {
   Model,
   Table,
   ForeignKey,
+  DataType
 } from 'sequelize-typescript';
 
 import { Post } from './post';
@@ -15,10 +16,10 @@ import { Resource } from './resource';
 @Table
 export class PostResourceRelation extends Model<PostResourceRelation> {
   @ForeignKey(() => Resource)
-  @Column
-  post_id: number;
+  @Column({ type: DataType.INTEGER, field: 'post_id' })
+  postId: number;
 
   @ForeignKey(() => Post)
-  @Column
-  resource_id: string;
+  @Column({ type: DataType.INTEGER, field: 'resource_id' })
+  resourceId: string;
 }

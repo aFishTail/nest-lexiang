@@ -43,7 +43,7 @@ import { PostResourceRelation } from './post_resource_relation'
 
     
     @ForeignKey(() => User)
-    @Column
+    @Column({ type: DataType.INTEGER, field: 'author_id' })
     author_id: number;
     
     @BelongsTo(() => User)
